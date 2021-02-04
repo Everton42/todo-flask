@@ -1,0 +1,29 @@
+{% extends 'base.html' %} {% block head %}
+<title>Tarefas</title>
+{% endblock head %} {% block body %}
+<div class="content">
+  <h1>Suas Tarefas</h1>
+  <table>
+    <thead>
+      <th>Tarefa</th>
+      <th>Add</th>
+      <th>Opções</th>
+    </thead>
+    {% for task in tasks %}
+    <tbody>
+      <td>{{ task.content }}</td>
+      <td>{{ task.date_created.date()}}</td>
+      <td class="actions">
+        <a href="">Excluir</a>
+        <a href="">Alterar</a>
+      </td>
+    </tbody>
+    {% endfor %}
+  </table>
+
+  <form action="/" method="POST">
+    <input type="text" name="content" id="content" />
+    <input type="submit" value="Add Task" />
+  </form>
+</div>
+{% endblock body %}
