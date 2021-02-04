@@ -1,12 +1,19 @@
 {% extends 'base.html' %} {% block head %}
 <title>Tarefas</title>
 {% endblock head %} {% block body %}
-<div class="content">
+<div class="header">
   <h1>Suas Tarefas</h1>
+  <form action="/" method="POST">
+    <input type="text" name="content" id="content" />
+    <input type="submit" value="+Tarefa" />
+  </form>
+</div>
+<div class="content">
+  {% if tasks|length < 1 %} <span>Não há tarefas cadastradas</span>{% else %}
   <table>
     <thead>
       <th>Tarefa</th>
-      <th>Add</th>
+      <th>Adicionado</th>
       <th>Opções</th>
     </thead>
     {% for task in tasks %}
@@ -14,16 +21,12 @@
       <td>{{ task.content }}</td>
       <td>{{ task.date_created.date()}}</td>
       <td class="actions">
-        <a href="">Excluir</a>
-        <a href="">Alterar</a>
+        <a href="/delete/{{task.id}}">Excluir</a>
+        <a href="/update/{{task.id}}">Alterar</a>
       </td>
     </tbody>
     {% endfor %}
   </table>
-
-  <form action="/" method="POST">
-    <input type="text" name="content" id="content" />
-    <input type="submit" value="Add Task" />
-  </form>
+  {% endif %}
 </div>
 {% endblock body %}
